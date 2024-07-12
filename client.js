@@ -1,33 +1,70 @@
-var ws
+var ws;
+const SYS_NAME = 'System_Robot';
 
-//取消連線
-// document.querySelector('#disconnect')?.addEventListener('click', (e) => {
-//     disconnect()
-// })
-
-function connect() { 
+function connect() {
     // Create WebSocket connection
     ws = new WebSocket('ws://localhost:8080');
+
     // 在開啟連線時執行
     ws.onopen = () => {
-        console.log('[open connection]')
         // Listen for messages from Server
         ws.onmessage = event => {
-            console.log(`[Message from server]:\n %c${event.data}` , 'color: blue')
+            showServerMsg(event.data);
         }
     }
 }
 
-function sendMessage(e) {
-    //connect();
+function clickSendMessage(e) {
+    connect();
     const msg = e.previousElementSibling.value;
-    // Send messages to Server
-    ws.send(msg)
-    e.previousElementSibling.value = '';
+    ws.addEventListener('open', function (event) {
+        showClientMsg(msg);
+        ws.send(msg); //Send messages to Server
+        e.previousElementSibling.value = '';
+    });
 }
 
-function disconnect() {
-    ws.close()
-    // 在關閉連線時執行
-    ws.onclose = () => console.log('[close connection]')
+function enterSendMessage(msg) {
+    connect();
+    ws.addEventListener('open', function (event) {
+        showClientMsg(msg);
+        ws.send(msg); //Send messages to Server
+    });
+}
+
+function showClientMsg(msg) {
+    //console.log("[client] "+msg);
+
+    const msgBoxHolderDiv = document.createElement('div');
+    msgBoxHolderDiv.classList.add('message-box-holder');
+
+    const msgBoxDiv = document.createElement('div');
+    msgBoxDiv.classList.add('message-box');
+    msgBoxDiv.textContent = msg;
+
+    msgBoxHolderDiv.appendChild(msgBoxDiv);
+
+    const chatSingleDiv = document.getElementById('chat-single-client');
+    chatSingleDiv.appendChild(msgBoxHolderDiv);
+}
+
+function showServerMsg(msg){
+    //console.log("[server] "+msg);
+
+    const msgBoxHolderDiv = document.createElement('div');
+    msgBoxHolderDiv.classList.add('message-box-holder');
+
+    const msgSenderDiv = document.createElement('div');
+    msgSenderDiv.classList.add('message-sender');
+    msgSenderDiv.textContent = SYS_NAME;
+
+    const msgBoxDiv = document.createElement('div');
+    msgBoxDiv.classList.add('message-box', 'message-partner');
+    msgBoxDiv.textContent = msg;
+
+    msgBoxHolderDiv.appendChild(msgSenderDiv);
+    msgBoxHolderDiv.appendChild(msgBoxDiv);
+
+    const chatSingleDiv = document.getElementById('chat-single-client');
+    chatSingleDiv.appendChild(msgBoxHolderDiv);
 }
