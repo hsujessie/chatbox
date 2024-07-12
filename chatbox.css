@@ -233,17 +233,6 @@ ul {
   text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
 }
 
-.attachment-panel {
-  padding: 3px 10px;
-  text-align: right;
-}
-
-.attachment-panel a, .attachment-panel a:link, .attachment-panel a:visited {
-  margin: 0 0 0 7px;
-  text-decoration: none;
-  color: rgba(0, 0, 0, 0.5);
-}
-
 .chatbox-min {
   margin-bottom: -362px;
 }
@@ -280,7 +269,7 @@ ul {
 .settings-popup:after, .settings-popup:before {
   border: 7px solid transparent;
 	border-bottom: 7px solid white;
-	border-top: none;	
+	border-top: none;
 	content: "";
 	position: absolute;
 	left: 45px;
@@ -315,4 +304,38 @@ ul {
 
 .settings-popup ul li a:hover {
   background: rgba(0, 0, 0, .05);
+}
+
+
+#upload-file{
+  width: 15px;
+  height: 15px;
+  display: none;
+}
+
+.upload-cover {
+  position: relative;
+  cursor: pointer;
+}
+
+.fa-smile-o, .fa-paperclip {
+  box-sizing: content-box;
+}
+
+.fa-smile-o {
+  padding-right: 10px;
+}
+
+.fa-paperclip {
+  padding-left: 10px;
+}
+
+.attachment-panel {
+  align-content: center;
+}
+
+.attachment-panel a, .attachment-panel a:link, .attachment-panel a:visited {
+  margin: 0 0 0 7px;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.5);
 }
