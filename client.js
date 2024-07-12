@@ -46,6 +46,8 @@ function showClientMsg(msg) {
 
     const chatSingleDiv = document.getElementById('chat-single-client');
     chatSingleDiv.appendChild(msgBoxHolderDiv);
+
+    scrollBarToBottom(chatSingleDiv);
 }
 
 function showServerMsg(msg){
@@ -67,4 +69,11 @@ function showServerMsg(msg){
 
     const chatSingleDiv = document.getElementById('chat-single-client');
     chatSingleDiv.appendChild(msgBoxHolderDiv);
+
+    scrollBarToBottom(chatSingleDiv);
+}
+
+//有新訊息時，scroll bar拉到最底
+function scrollBarToBottom(chatSingleDiv) {
+    chatSingleDiv.scrollTop = chatSingleDiv.scrollHeight;
 }
